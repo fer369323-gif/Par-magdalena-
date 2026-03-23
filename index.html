@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para Magdalena</title>
+    <style>
+        body { margin: 0; background: #000; color: white; font-family: 'Arial', sans-serif; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .stars { position: absolute; width: 2px; height: 2px; background: white; box-shadow: 500px 200px #FFF, 1200px 400px #FFF, 800px 500px #FFF, 200px 800px #FFF, 400px 100px #FF69B4, 100px 300px #FF1493; animation: anim 50s linear infinite; }
+        @keyframes anim { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
+        .container { text-align: center; z-index: 10; padding: 20px; }
+        h1 { font-size: 3em; color: #ff69b4; text-shadow: 0 0 20px #ff1493; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        p { font-size: 1.5em; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>Para Magdalena</h1>
+        <p>Eres mi galaxia favorita ✨</p>
+    </div>
+</body>
+</html>
