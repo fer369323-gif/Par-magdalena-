@@ -1,36 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Para Magdalena</title>
+    <title>Universo de Amor para Magdalena</title>
     <style>
-        body { margin: 0; background: radial-gradient(circle, #2d132c 0%, #170a16 70%, #000000 100%); overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Arial'; animation: zoomSpace 10s infinite alternate ease-in-out; }
-        @keyframes zoomSpace { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
-        .floater { position: absolute; top: -10%; font-size: 24px; animation: floatDown 8s infinite linear; opacity: 0; pointer-events: none; }
-        @keyframes floatDown { 0% { top: -10%; opacity: 1; transform: translateX(0) rotate(0); } 100% { top: 110%; opacity: 0; transform: translateX(50px) rotate(360deg); } }
-        .text { text-align: center; z-index: 10; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 20px; }
-        h1 { color: #ff85a2; font-size: 3.5em; text-shadow: 0 0 25px #ff1493; margin: 0; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-        p { color: #fff; font-size: 1.4em; margin-top: 15px; font-style: italic; text-shadow: 1px 1px 5px #000; }
+        body { margin: 0; background: #000; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Georgia', serif; perspective: 1500px; color: white; }
+        
+        /* Fondo de estrellas lejanas */
+        .stars-bg { position: absolute; width: 100%; height: 100%; background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 10px); background-size: 50px 50px; opacity: 0.3; z-index: 0; }
+
+        /* Estilo para las 10 estrellas gigantes (soles) */
+        .giant-star { position: absolute; border-radius: 50%; filter: blur(10px); z-index: 1; animation: starPulse 4s infinite alternate ease-in-out; }
+        @keyframes starPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+
+        /* Estilo para los elementos flotantes (tulipanes, mensajes) */
+        .orbiter { position: absolute; z-index: 2; opacity: 0; pointer-events: none; }
+        
+        /* Animación principal: caída con balanceo y perspectiva */
+        @keyframes orbitalDrift {
+            0% { top: -10%; opacity: 0; transform: translateZ(-1000px) rotateY(0deg); }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 110%; opacity: 0; transform: translateZ(500px) rotateY(360deg) translateX(100px); }
+        }
+
+        /* Contenedor del texto central (fijo) */
+        .central-text { z-index: 10; text-align: center; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 20px; box-shadow: 0 0 30px rgba(255,105,180,0.4); }
+        h1 { color: #ff85a2; font-size: 4.5em; text-shadow: 0 0 30px #ff1493, 0 0 10px #fff; margin: 0; animation: textGlow 2s infinite alternate; }
+        p { color: #fdfdfd; font-size: 1.8em; font-style: italic; margin-top: 15px; }
+        @keyframes textGlow { from { text-shadow: 0 0 20px #ff1493; } to { text-shadow: 0 0 40px #ff1493, 0 0 15px #fff; } }
+
+        /* Colores para las frases bonitas */
+        .frase-pink { color: #ff85a2; }
+        .frase-white { color: #fff; }
     </style>
 </head>
 <body>
+    <div class="stars-bg"></div>
+
     <script>
-        const symbols = ['🌷', '💖', '✨', '🤍', '⭐', '🌷'];
-        for (let i = 0; i < 60; i++) {
-            let f = document.createElement('div');
-            f.className = 'floater';
-            f.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-            f.style.left = Math.random() * 100 + 'vw';
-            f.style.animationDelay = Math.random() * 8 + 's';
-            f.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            document.body.appendChild(f);
+        // --- 1. Creación de las 10 Estrellas Gigantes ---
+        const starColors = ['#fffde0', '#ffeeb0', '#ffd27f'];
+        for (let i = 0; i < 10; i++) {
+            let star = document.createElement('div');
+            star.className = 'giant-star';
+            
+            // Tamaño aleatorio para la estrella
+            let size = Math.random() * 150 + 100; // Entre 100px y 250px
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            // Posición aleatoria esparcida
+            star.style.left = Math.random() * 90 + 5 + 'vw';
+            star.style.top = Math.random() * 90 + 5 + 'vh';
+            
+            // Color y brillo aleatorio
+            let color = starColors[Math.floor(Math.random() * starColors.length)];
+            star.style.background = `radial-gradient(circle, ${color} 0%, rgba(255,255,255,0) 70%)`;
+            star.style.boxShadow = `0 0 ${size/2}px ${color}`;
+            
+            document.body.appendChild(star);
+        }
+
+        // --- 2. Creación de la Lluvia Orbital (Tulipanes y Mensajes) ---
+        const phrases = [
+            { t: '🌷', c: '' }, // Tulipán
+            { t: 'Magdalena', c: 'frase-pink' },
+            { t: 'Mi hermosa', c: 'frase-white' },
+            { t: 'Chula preciosa', c: 'frase-pink' },
+            { t: 'Muy bonita', c: 'frase-white' },
+            { t: 'Luz de mi vida ✨', c: 'frase-pink' },
+            { t: 'Eres especial', c: 'frase-white' },
+            { t: 'Flores para ti 🌷', c: 'frase-pink' },
+            { t: '💖', c: '' }, // Corazón
+            { t: 'Siempre brillas', c: 'frase-white' },
+            { t: 'Sonríe', c: 'frase-pink' }
+        ];
+
+        // Crear muchos elementos
+        for (let i = 0; i < 100; i++) {
+            let p = phrases[Math.floor(Math.random() * phrases.length)];
+            let orbiter = document.createElement('div');
+            orbiter.className = `orbiter ${p.c}`;
+            orbiter.innerHTML = p.t;
+            
+            // --- EL TRUCO DE LA PROFUNDIDAD ---
+            let depth = Math.random(); // Entre 0 (fondo) y 1 (primer plano)
+            
+            // Los elementos del fondo (depth pequeño) son más pequeños y lentos
+            let baseFontSize = (p.t === '🌷' || p.t === '💖') ? 40 : 25;
+            let fontSize = baseFontSize * (depth * 1.5 + 0.5); // De 0.5x a 2x el tamaño
+            orbiter.style.fontSize = fontSize + 'px';
+            
+            // Velocidad: más rápido en primer plano (depth alto)
+            let duration = 15 - (depth * 10); // De 15s (lento) a 5s (rápido)
+            orbiter.style.animationDuration = duration + 's';
+            
+            // Posición x aleatoria
+            orbiter.style.left = Math.random() * 100 + 'vw';
+            
+            // Delay aleatorio para que no salgan todos a la vez
+            orbiter.style.animationDelay = Math.random() * 15 + 's';
+            
+            // Aplicar la animación principal
+            orbiter.style.animationName = 'orbitalDrift';
+            orbiter.style.animationIterationCount = 'infinite';
+            orbiter.style.animationTimingFunction = 'linear';
+            
+            document.body.appendChild(orbiter);
         }
     </script>
-    <div class="text">
-        <h1>Magdalena</h1>
-        <p>Mi tulipán más hermoso y mi estrella favorita 🌷✨</p>
+
+    <div class="central-text">
+        <h1>Para Magdalena</h1>
+        <p>Un universo entero brillando para ti ✨🌷💖</p>
     </div>
 </body>
 </html>
